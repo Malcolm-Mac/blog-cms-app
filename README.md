@@ -127,6 +127,21 @@ Run the following commands in root folder:
 - Use the provided authentication system to manage users and roles.
 - Customize the application according to your requirements.
 
+## Laravel Pulse
+
+### Monitoring User Performance
+
+We utilize Laravel Pulse for monitoring and analyzing user performance within our Laravel application. This powerful tool offers real-time insights into user behavior, allowing us to optimize user experience and identify performance bottlenecks.
+
+#### How to Use
+
+1. **Tracking User Activities:** Use Laravel Pulse APIs to track user activities within the application. For example:
+   ```bash
+   php artisan pulse:check
+
+2. **Visit:** After successfully running the command above, access application running on http://localhost:8002/pulse
+
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
