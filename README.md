@@ -5,7 +5,7 @@ Welcome to the Laravel Filament Blog CMS repository! This project is a simple ye
 Author: Malcolm Motubatse
 
 <p align="left">
-    <a href="#">
+    <a href="http://localhost:8002" target="_blank">
         <img 
             src="https://res.cloudinary.com/droskhnig/image/upload/v1714300884/screenshot_anstde.png" 
             width="800" 
@@ -140,6 +140,17 @@ We utilize Laravel Pulse for monitoring and analyzing user performance within ou
    php artisan pulse:check
 
 2. **Visit:** After successfully running the command above, access application running on http://localhost:8002/pulse
+
+3. **Preview of Laravel Pulse**
+
+<p align="left">
+    <a href="http://localhost:8002/pulse" target="_blank">
+        <img 
+            src="https://res.cloudinary.com/droskhnig/image/upload/v1714302526/laravel_pulse_fyjrff.png" 
+            width="800" 
+            alt="Laravel Pulse Overview" />
+    </a>
+</p>
 
 
 ## Contributing
