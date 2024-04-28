@@ -8,7 +8,7 @@ Author: Malcolm Motubatse
     <a href="#">
         <img 
             src="https://res.cloudinary.com/droskhnig/image/upload/v1714300884/screenshot_anstde.png" 
-            width="600" 
+            width="800" 
             alt="Algorithmic Blog CMS" />
     </a>
 </p>
