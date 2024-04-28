@@ -10,6 +10,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['comment'];
+    
     /**
      * Get the user that owns the comment.
      */
