@@ -4,11 +4,11 @@ Welcome to the Laravel Filament Blog CMS repository! This project is a simple ye
 
 Author: Malcolm Motubatse
 
-<p align="center">
+<p align="left">
     <a href="#">
         <img 
             src="https://res.cloudinary.com/droskhnig/image/upload/v1714300884/screenshot_anstde.png" 
-            width="400" 
+            width="600" 
             alt="Algorithmic Blog CMS" />
     </a>
 </p>
