@@ -87,29 +87,31 @@ After successfully installing, application should run on http://localhost:8002
 
 Run the following commands in root folder:
 
+1. Copy the environment variables file:
+
     ```bash
     cp .docker/docker-compose.local.yml docker-compose.yml
     ```
 
-Then create a .env file to prepare docker containers installation.
+2. Then create a .env file to prepare docker containers installation.
 
     ```bash
     cp .env.example .env
     ```
 
-Then deploy the local installation, and wait until installation is complete.
+3. Then deploy the local installation, and wait until installation is complete.
 
     ```bash
     docker-compose up -d
     ```
 
-As soon as installation is complete, ensure to run all the laravel installation commands inside the app container.
+4. As soon as installation is complete, ensure to run all the laravel installation commands inside the app container.
 
     ```bash
     docker-compose exec app bash // Logs you in an SSH session in app container
     ```
 
-When inside the container, run the following commands (IF YOU DO NOT WANT TO IMPORT DATABASE)
+5. When inside the container, run the following commands (IF YOU DO NOT WANT TO IMPORT DATABASE)
 
     ```bash
     composer install
