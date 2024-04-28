@@ -53,7 +53,7 @@ class Blog extends Model
      */
     public function users(): belongsToMany
     {
-        return $this->belongsToMany(User::class, 'blog_user', 'user_id', 'blog_id');
+        return $this->belongsToMany(User::class, 'blog_user');
     }
 
     /*  public function registerMediaConversions(?Media $media = null): void

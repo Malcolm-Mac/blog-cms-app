@@ -18,17 +18,20 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Textarea;
-
+use Filament\Infolists\Components\Group as ComponentsGroup;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\Section as ComponentsSection;
+use Filament\Infolists\Components\Split as ComponentsSplit;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Validation\Rule;
 
 class BlogResource extends Resource
 {
@@ -80,7 +83,9 @@ class BlogResource extends Resource
                                     'undo',
                                 ])
                                 ->live(onBlur: true)
-                                ->maxLength(65535)
+                                ->maxLength(3000)
+                                ->hint(fn ($state, $component) => strlen($state) .' charaters '. '(left: ' . $component->getMaxLength() - strlen($state) . ' characters)')
+                                ->reactive()
                                 ->required(),
                             Textarea::make('excerpt')
                                 ->required(),
@@ -96,8 +101,8 @@ class BlogResource extends Resource
                     Group::make()->schema([
                         Section::make('Featured Image')->schema([
                             FileUpload::make('featured_image')
-                            ->directory('blogImage')
-                            ->storeFileNamesIn('original_filename')
+                                ->directory('blogImage')
+                                ->storeFileNamesIn('original_filename')
                         ]),
                         Section::make('')->schema([
                             Select::make('users')
@@ -120,14 +125,14 @@ class BlogResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('featured_image')->circular(),
+                TextColumn::make('users.name')->label('Author')->sortable()->searchable(),
                 TextColumn::make('title')->sortable()->searchable(),
-                TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('tags.name')->sortable()->searchable(),
                 TextColumn::make('categories.name')->sortable()->searchable(),
             ])
             ->filters([
+                Filter::make('users.name'),
                 Filter::make('title'),
-                Filter::make('slug'),
                 Filter::make('tags.name'),
                 Filter::make('categories.name')
             ])
@@ -147,6 +152,31 @@ class BlogResource extends Resource
             ->emptyStateDescription(self::emptyDescription());
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            ComponentsSplit::make([
+                ComponentsSection::make('')
+                    ->schema([
+                        TextEntry::make('title'),
+                        TextEntry::make('slug'),
+                        TextEntry::make('content')
+                            ->markdown()
+                            ->prose(),
+                    ]),
+                ComponentsGroup::make()->schema([
+                    ComponentsSection::make('Featured Image')->schema([
+                        ImageEntry::make('featured_image')
+                    ]),
+                    ComponentsSection::make('')->schema([
+                        TextEntry::make('users.name'),
+                        TextEntry::make('created_at')->dateTime()
+                    ])
+                ])->grow(false)
+            ])->from('md'),
+        ])->columns(1);
+    }
+
     public static function getRelations(): array
     {
         return [
@@ -159,6 +189,7 @@ class BlogResource extends Resource
         return [
             'index' => Pages\ListBlogs::route('/'),
             'create' => Pages\CreateBlog::route('/create'),
+            'view' => Pages\ViewBlog::route('/{record}'),
             'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }

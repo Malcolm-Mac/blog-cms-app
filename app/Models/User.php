@@ -67,7 +67,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function blogs(): BelongsToMany
     {
-        return $this->belongsToMany(Blog::class, 'blog_user', 'blog_id', 'user_id');
+        return $this->belongsToMany(Blog::class, 'blog_user');
     }
 
     public function canAccessPanel(Panel $panel): bool
